@@ -1,0 +1,74 @@
+# title: Option C - 7kW Low-Density Pod Design
+# namespace: csv
+# position: auto
+# connect: {"from": "refs", "to": "id", "style": "curved=1;endArrow=block;endFill=1;strokeWidth=2;"}
+# padding: 20
+# layout: horizontalflow
+
+# Shapes definitions
+shape,id,label,style
+cloud,spine,Core Network Spine,ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=center;
+switch,comp_leaf1,Compute Leaf 1
+(Rack 1 ToR - 36p),shape=mxgraph.cisco.switches.layer_3_switch;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;
+switch,comp_leaf2,Compute Leaf 2
+(Rack 2 ToR - 36p),shape=mxgraph.cisco.switches.layer_3_switch;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;
+switch,stg_leaf1,Storage Leaf 1
+(Rack 3 ToR - 36p),shape=mxgraph.cisco.switches.layer_3_switch;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;
+switch,stg_leaf2,Storage Leaf 2
+(Rack 3 ToR - 36p),shape=mxgraph.cisco.switches.layer_3_switch;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;
+
+# Rack 1 Components (7kW Peak / 5.3kW Continuous)
+server,r1_comp,Rack 1 Compute
+(5x Low-Draw Nodes),rounded=1;fillColor=#f5f5f5;strokeColor=#666666;
+db,r1_db,Postgres DB Host 1
++ MaxScale 1,shape=datastore;fillColor=#fff2cc;strokeColor=#d6b656;
+server,r1_cnode,VAST CNode 1
+(Stateless Front-End),rounded=1;fillColor=#e1d5e7;strokeColor=#b85450;
+
+# Rack 2 Components (7kW Peak / 5.3kW Continuous)
+server,r2_comp,Rack 2 Compute
+(5x Low-Draw Nodes),rounded=1;fillColor=#f5f5f5;strokeColor=#666666;
+db,r2_db,Postgres DB Host 2
++ MaxScale 2,shape=datastore;fillColor=#fff2cc;strokeColor=#d6b656;
+server,r2_cnode,VAST CNode 2
+(Stateless Front-End),rounded=1;fillColor=#e1d5e7;strokeColor=#b85450;
+
+# Rack 3 Components (7kW Peak / 5.6kW Continuous)
+server,r3_comp,Rack 3 Compute
+(3x Low-Draw Nodes),rounded=1;fillColor=#f5f5f5;strokeColor=#666666;
+db,r3_db,Postgres DB Host 3
+(HA Standby Cluster),shape=datastore;fillColor=#fff2cc;strokeColor=#d6b656;
+server,r3_cnode,VAST CNode 3
+(Stateless Front-End),rounded=1;fillColor=#e1d5e7;strokeColor=#b85450;
+storage,r3_dnode,2x VAST DNodes
+(20PB Storage Matrix),shape=cube;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;
+
+# Interconnections & Wiring Logic
+spine,comp_leaf1,,strokeColor=#6c8ebf;
+spine,comp_leaf2,,strokeColor=#6c8ebf;
+spine,stg_leaf1,,strokeColor=#82b366;
+spine,stg_leaf2,,strokeColor=#82b366;
+
+comp_leaf1,comp_leaf2,MLAG Peer Link,strokeColor=#d79b00;dashed=1;
+stg_leaf1,stg_leaf2,MLAG Peer Link,strokeColor=#82b366;dashed=1;
+
+r1_comp,comp_leaf1,Local DAC,strokeColor=#ffe6cc;
+r1_comp,comp_leaf2,Overhead AOC,strokeColor=#ffe6cc;
+r2_comp,comp_leaf2,Local DAC,strokeColor=#ffe6cc;
+r2_comp,comp_leaf1,Overhead AOC,strokeColor=#ffe6cc;
+r3_comp,comp_leaf1,Overhead AOC,strokeColor=#ffe6cc;
+r3_comp,comp_leaf2,Overhead AOC,strokeColor=#ffe6cc;
+
+r1_db,comp_leaf1,Local DAC,strokeColor=#fff2cc;
+r2_db,comp_leaf2,Local DAC,strokeColor=#fff2cc;
+r3_db,comp_leaf1,Overhead AOC,strokeColor=#fff2cc;
+
+r1_cnode,stg_leaf1,Overhead AOC,strokeColor=#d5e8d4;
+r1_cnode,stg_leaf2,Overhead AOC,strokeColor=#d5e8d4;
+r2_cnode,stg_leaf1,Overhead AOC,strokeColor=#d5e8d4;
+r2_cnode,stg_leaf2,Overhead AOC,strokeColor=#d5e8d4;
+r3_cnode,stg_leaf1,Local DAC,strokeColor=#d5e8d4;
+r3_cnode,stg_leaf2,Local DAC,strokeColor=#d5e8d4;
+
+stg_leaf1,r3_dnode,Local NVMe/TCP DAC,strokeColor=#b85450;
+stg_leaf2,r3_dnode,Local NVMe/TCP DAC,strokeColor=#b85450;

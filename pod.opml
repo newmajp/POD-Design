@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+  <head>
+    <title>On-Premise Hyperscale Pod Architecture</title>
+  </head>
+  <body>
+    <outline text="On-Premise Hyperscale Pod Architecture">
+      <outline text="Big Data Deployment &amp; Evolution Strategy"/>
+      <outline text="Standardised, repeatable 3-rack infrastructure block."/>
+      <outline text="Linear scaling capacity for mixed big data environments."/>
+      <outline text="Seamless transition from legacy Hadoop to modern Kubernetes."/>
+    </outline>
+    <outline text="Core Architectural Pillars">
+      <outline text="Foundational Infrastructure Framework"/>
+      <outline text="Disaggregated Shared-Everything (DASE): Computes and storage scale entirely independently."/>
+      <outline text="Tri-Fabric Network Segregation: Completely isolated pipelines for Compute, Storage, and Databases."/>
+      <outline text="Cross-Cabinet Fault Isolation: Hardware is distributed to survive full rack dropouts."/>
+    </outline>
+    <outline text="Pod Sizing &amp; Power Profiles">
+      <outline text="Hardware Density Scaling Options"/>
+      <outline text="Option A (15 kW Mid-Density): 31 Compute Nodes | 36-Port Switches | Balanced performance footprint."/>
+      <outline text="Option B (30 kW High-Density): 67 Compute Nodes | 64-Port Switches | Maximum computational velocity."/>
+      <outline text="Option C (7 kW Low-Density): 13 Compute Nodes | 36-Port Switches | Safe for standard corporate server rooms."/>
+    </outline>
+    <outline text="Unified VAST Data Storage Core">
+      <outline text="20PB Resilient Flash Matrix Layout"/>
+      <outline text="3x Stateless CNodes: Split 1-1-1 across Racks 1, 2, and 3 to eliminate blast radiuses."/>
+      <outline text="2x Capacity DNodes: Positioned at the base of Rack 3 providing 20PB raw flash space."/>
+      <outline text="Intelligent Volume Mapping: VAST CSI handles dynamic NVMe/TCP paths directly to worker nodes."/>
+    </outline>
+    <outline text="High-Availability Database Layer">
+      <outline text="Distributed PostgreSQL Cluster"/>
+      <outline text="1-1-1 Physical Spreading: One Postgres host positioned in each rack to prevent total line outages."/>
+      <outline text="Patroni Core Orchestration: Automated multi-primary failover with etcd state consistency."/>
+      <outline text="Dual MaxScale Load Balancers: Positioned in Racks 1 &amp; 2 for connection pooling and traffic routing."/>
+    </outline>
+    <outline text="Network Fabric &amp; Cabling Rules">
+      <outline text="Signal Integrity &amp; High Availability"/>
+      <outline text="Diagonal Switch Layout: Compute Leaves in Racks 1 &amp; 2; Storage Leaves clustered in Rack 3."/>
+      <outline text="Direct Attach Copper (DAC): Mandatory for low-latency intra-rack server patching."/>
+      <outline text="Active Optical Cables (AOC): Used exclusively for inter-rack, overhead cable tray cross-connects."/>
+    </outline>
+    <outline text="Hadoop-to-Kubernetes Convergence">
+      <outline text="3-Phase Automated Lifecycle Loop"/>
+      <outline text="Phase 1 (Decouple Storage): Repoint legacy MapReduce tasks to VAST via s3a/NFS connectors."/>
+      <outline text="Phase 2 (Containerise Jobs): Migrate active processing threads to Spark-on-K8S Operators."/>
+      <outline text="Phase 3 (Automated Bare-Metal Wipe): Reprovision bare-metal Hadoop workers into Kubelet assets via PXE."/>
+    </outline>
+    <outline text="Cross-Site Disaster Recovery (DR)">
+      <outline text="Continuous Availability Protocol"/>
+      <outline text="VAST Delta Streaming: Native, continuous asynchronous replication between Site A and Site B."/>
+      <outline text="Database Async Mirroring: Patroni coordinates cross-WAN state streams to a warm standby cluster."/>
+      <outline text="Automated Check-Sequence: Global DNS shift, volume remounts via CSI, and active database promotion."/>
+    </outline>
+  </body>
+</opml>
