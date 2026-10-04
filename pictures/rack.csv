@@ -1,0 +1,24 @@
+Rack Unit,Component Name,Type,Size,Notes
+U41-U42,Network Switch 1,Network,2U,Core ToR Switch
+U40,Network Switch 2,Network,1U,Secondary ToR Switch
+U39,Appliance 1,Appliance,1U,Firewall/Gateway
+U38,Blank Buffer,Blank,1U,Airflow Space
+U36-U37,Server 18,Compute,2U,Node 18
+U34-U35,Server 17,Compute,2U,Node 17
+U32-U33,Server 16,Compute,2U,Node 16
+U30-U31,Server 15,Compute,2U,Node 15
+U28-U29,Server 14,Compute,2U,Node 14
+U26-U27,Server 13,Compute,2U,Node 13
+U24-U25,Server 12,Compute,2U,Node 12
+U22-U23,Server 11,Compute,2U,Node 11
+U20-U21,Server 10,Compute,2U,Node 10
+U18-U19,Server 09,Compute,2U,Node 09
+U16-U17,Server 08,Compute,2U,Node 08
+U14-U15,Server 07,Compute,2U,Node 07
+U12-U13,Server 06,Compute,2U,Node 06
+U10-U11,Server 05,Compute,2U,Node 05
+U08-U09,Server 04,Compute,2U,Node 04
+U06-U07,Server 03,Compute,2U,Node 03
+U04-U05,Server 02,Compute,2U,Node 02
+U02-U03,Server 01,Compute,2U,Node 01
+U01,Base Buffer,Blank,1U,Base Clearance
